@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Codewars clan ranking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="https://getbootstrap.com/2.0.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Unsafe.rs code wars ranking</h1>
+      </div>
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>clan points</th>
+            <th>initial points</th>
+            <th>total points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for points, current_points, initial_points, user in score %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td>{{user}}</td>
+            <td>{{points}}</td>
+            <td>{{initial_points}}</td>
+            <td>{{current_points}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    
+      <hr/>
+
+      <footer>
+        <p>&copy; Unsafe.rs 2021</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/jquery.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-transition.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-alert.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-modal.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-dropdown.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-tab.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-tooltip.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-popover.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-button.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-collapse.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-carousel.js"></script>
+    <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-typeahead.js"></script>
+    <script>
+        window.onload = (event) => {
+            let users = {
+                "shyba": 770,
+                "innng": 3,
+                "consoli": 2,
+                "luizdepra": 65
+            };
+            for (var user in users) {
+                let uri = 'https://www.codewars.com/api/v1/users/' + user;
+                fetch(uri).then(response=>response.json()).then(data=>console.log(data));
+            }
+        };
+    </script>
+
+  </body>
+</html>

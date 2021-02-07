@@ -1,7 +1,8 @@
 import aiohttp
 import asyncio
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from time import time
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 app.last_refresh = 0
@@ -17,6 +18,7 @@ users = {
         "marcospb19": 12
 }
 refresh_every = 60
+templates = Jinja2Templates(directory="templates")
 
 
 async def fetch_state():
@@ -40,6 +42,6 @@ async def refresh_task():
 
 
 @app.get("/")
-async def root():
+async def root(request: Request):
     state = await fetch_state()
-    return state
+    return templates.TemplateResponse("index.html", {"request": request, "score": state})
