@@ -1,5 +1,14 @@
 use warp::Filter;
 use tera::{Tera, Context};
+use serde::Serialize;
+
+#[derive(Debug, Serialize)]
+struct Score {
+    user: String,
+    points: i32,
+    initial_points: i32,
+    current_points: i32
+}
 
 fn default() -> String {
     let tera = match Tera::new("templates/**/*.html") {
@@ -10,6 +19,7 @@ fn default() -> String {
         }
     };
     let mut context = Context::new();
+    context.insert("scores", &[Score {user: "Victor".to_string(), points: 0, initial_points: 0, current_points: 0}]);
     tera.render("index.html", &context).unwrap()
 }
 
