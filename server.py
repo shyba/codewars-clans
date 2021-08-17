@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 import aiohttp
 import asyncio
 from fastapi import FastAPI, Request
@@ -20,6 +22,7 @@ users = {
 }
 refresh_every = 60
 templates = Jinja2Templates(directory="templates")
+User = namedtuple("User", "points current_points initial_points user")
 
 
 async def fetch_state():
@@ -37,7 +40,7 @@ async def refresh_task():
                 response = await response.json()
                 print(response)
                 current_points = response["honor"]
-                scoreboard.append((current_points - initial_points, current_points, initial_points, user))
+                scoreboard.append(User(current_points - initial_points, current_points, initial_points, user))
     scoreboard.sort(reverse=True)
     app.scoreboard = scoreboard
 
@@ -45,4 +48,4 @@ async def refresh_task():
 @app.get("/")
 async def root(request: Request):
     state = await fetch_state()
-    return templates.TemplateResponse("index.html", {"request": request, "score": state})
+    return templates.TemplateResponse("index.html", {"request": request, "scores": state})

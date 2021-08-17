@@ -51,13 +51,13 @@
           </tr>
         </thead>
         <tbody>
-          {% for points, current_points, initial_points, user in score %}
+          {% for score in scores %}
           <tr>
             <td>{{loop.index}}</td>
-            <td>{{user}}</td>
-            <td>{{points}}</td>
-            <td>{{initial_points}}</td>
-            <td>{{current_points}}</td>
+            <td>{{score.user}}</td>
+            <td>{{score.points}}</td>
+            <td>{{score.initial_points}}</td>
+            <td>{{score.current_points}}</td>
           </tr>
           {% endfor %}
         </tbody>
