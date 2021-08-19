@@ -108,12 +108,15 @@ async fn default() -> Result<impl Reply, Infallible> {
 
 #[tokio::main]
 async fn main() {
+    let port: u16 = match std::env::var("PORT") {
+        Ok(value) => u16::from_str(&value).unwrap_or(3030),
+        Err(_) => 3030
+    };
     let hello = warp::any().and_then(
         || async {
             default().await
         });
 
     warp::serve(hello)
-        .run(([127, 0, 0, 1], 3030))
-        .await;
+        .run(([0, 0, 0, 0], port)).await;
 }
