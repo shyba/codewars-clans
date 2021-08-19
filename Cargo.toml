@@ -19,3 +19,5 @@ serde = { version = "1.0", features = ["derive"] }
 hyper = "0.14.11"
 hyper-tls = "0.5.0"
 serde_json = "1.0.66"
+serde_derive = "1.0.127"
+cached = "0.25"
