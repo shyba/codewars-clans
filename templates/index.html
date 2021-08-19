@@ -87,20 +87,5 @@
     <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-collapse.js"></script>
     <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-carousel.js"></script>
     <script src="https://getbootstrap.com/2.0.2/assets/css/bootstrap.css/assets/js/bootstrap-typeahead.js"></script>
-    <script>
-        window.onload = (event) => {
-            let users = {
-                "shyba": 770,
-                "innng": 3,
-                "consoli": 2,
-                "luizdepra": 65
-            };
-            for (var user in users) {
-                let uri = 'https://www.codewars.com/api/v1/users/' + user;
-                fetch(uri).then(response=>response.json()).then(data=>console.log(data));
-            }
-        };
-    </script>
-
   </body>
 </html>
