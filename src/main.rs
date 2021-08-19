@@ -9,6 +9,7 @@ use std::convert::Infallible;
 use std::collections::HashMap;
 use std::str::FromStr;
 use cached::proc_macro::cached;
+use lazy_static::lazy_static;
 
 const USERS: [User; 7] = [
     User {name: "shyba", initial_points: 770},
@@ -19,6 +20,20 @@ const USERS: [User; 7] = [
     User {name: "marcospb19", initial_points: 12},
     User {name: "v0idpwn", initial_points: 2}
 ];
+
+lazy_static! {
+    pub static ref TEMPLATES: Tera = {
+        let tera = match Tera::new("templates/**/*.html") {
+        Ok(t) => t,
+        Err(e) => {
+            println!("Parsing error(s): {}", e);
+            ::std::process::exit(1);
+            }
+        };
+        tera
+
+        };
+}
 
 #[derive(Deserialize, Debug)]
 struct CodewarsAPILanguage {
@@ -86,16 +101,9 @@ async fn fetch_scores() -> Vec<Score> {
 }
 
 async fn default() -> Result<impl Reply, Infallible> {
-    let tera = match Tera::new("templates/**/*.html") {
-        Ok(t) => t,
-        Err(e) => {
-            println!("Parsing error(s): {}", e);
-            ::std::process::exit(1);
-        }
-    };
     let mut context = Context::new();
     context.insert("scores", &fetch_scores().await);
-    Ok(warp::reply::html(tera.render("index.html", &context).unwrap()))
+    Ok(warp::reply::html(TEMPLATES.render("index.html", &context).unwrap()))
 }
 
 #[tokio::main]

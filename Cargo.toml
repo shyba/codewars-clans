@@ -8,7 +8,7 @@ edition = "2018"
 [profile.release]
 lto = true
 codegen-units = 1
-opt-level = 2
+opt-level = 3
 panic = "abort"
 
 [dependencies]
@@ -21,3 +21,4 @@ hyper-tls = "0.5.0"
 serde_json = "1.0.66"
 serde_derive = "1.0.127"
 cached = "0.25"
+lazy_static = "1.4.0"
